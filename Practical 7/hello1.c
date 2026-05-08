@@ -5,19 +5,44 @@
 
 #include	<stdio.h>
 #include	<curses.h>
+#include <unistd.h>
+#include <string.h>
 
-main()
+int main(int argc, char *argv[])
 {
 	initscr() ;		/* turn on curses	*/
 
+  char *message;
+  int tracker;
+  if(argc > 1){
+      tracker = 1;
+      message = argv[1];
+} else {
+      message = "Hello, World";
+  }
+
+  int col = (COLS - strlen(message)) / 2;
+  int row = LINES / 2;
+
 				/* send requests	*/
 	clear();			/* clear screen	*/
-	move(10,20);			/* row10,col20	*/
-	addstr("Hello, world");		/* add a string	*/
-	move(LINES-1,0);		/* move to LL	*/
 
-	refresh();		/* update the screen	*/
-	getch();		/* wait for user input	*/
+  for(int i = 0; i < 10; i++){
+
+	    move(row,col);			/* row10,col20	*/
+      int tempCol = col;
+      if(tracker == 1){
+          addstr(argv[tracker]);
+          tempCol += 1;
+    } else {
+	        addstr(message);		/* add a string	*/
+    }
+	    refresh();		/* update the screen	*/
+      sleep(1);
+      clear();
+      refresh();
+      sleep(1);
+  }
 
 	endwin();		/* turn off curses	*/
 }
