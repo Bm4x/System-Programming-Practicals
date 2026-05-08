@@ -24,8 +24,7 @@
 
 int main(int ac, char *av[])
 {
-	void	inthandler(int);
-	void	quithandler(int);
+	void	signalhandler(int);
 	char	input[INPUTLEN];
 	int	nchars;
 
