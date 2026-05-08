@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
       message = argv[1];
 } else {
       message = "Hello, World";
+      tracker = 0;
   }
 
   int col = (COLS - strlen(message)) / 2;
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 
 	    move(row,col);			/* row10,col20	*/
       int tempCol = col;
-      if(tracker == 1){
+      if(tracker == 1) {
           addstr(argv[tracker]);
           tempCol += 1;
     } else {
