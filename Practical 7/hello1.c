@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
 
   char *message;
   int tracker;
+
   if(argc > 1){
       tracker = 1;
-      message = argv[1];
 } else {
       message = "Hello, World";
       tracker = 0;
@@ -30,11 +30,15 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < 10; i++){
 
-	    move(row,col);			/* row10,col20	*/
+	    move(row,col);			/* centre of screen (calculated earlier)	*/
       int tempCol = col;
-      if(tracker == 1) {
-          addstr(argv[tracker]);
-          tempCol += 1;
+      if(tracker == 1) { 
+          for(int i = 1; i < sizeof(argc); i++) {
+              addstr(argv[i]);
+              if(i + 1 < sizeof(argc)) {
+                  addstr(" ");
+              }
+          }
     } else {
 	        addstr(message);		/* add a string	*/
     }
