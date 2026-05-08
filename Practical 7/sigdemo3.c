@@ -2,16 +2,20 @@
  *	purpose:   show answers to signal questions
  *	question1: does the handler stay in effect after a signal arrives?
  *  Whatever was typed before the signal arrived is forgoten can cleared, and onced the signal arrives the 
- *  signal handler for the signal sent is executed.
+ *  signal handler for the signal sent is executed. Yes  the handler stays in effect after a signal arrives,
+ *  and another input is require to break effect.
  *
  *	question2: what if a signalX arrives while handling signalX?
- *  When signalX arrives while handling SignalX, the handler is cleared and repeats the signal handler for sigX.
+ *  When signalX arrives while handling SignalX, the handler will queue the second signalX to 
+ *  run after the first signalX is handled.
  *
  *  question3: what if a signalX arrives while handling signalY?
- *  
+ *  When signalX arrives while handling signalY, the first handler (signalY) be interrupted  by the second signal (signalX),
+ *  in which after signalY will continue and then execute after signal is finished.
  *
  *  question4: what happens to read() when a signal arrives?
- *
+ *  read() will return -1 once a signal arrives and return a perror of "read has returned an error",
+ *  however this does not happen as the signal handlers prevents this from happening.
  *
  */
 
