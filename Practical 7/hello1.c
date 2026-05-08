@@ -30,13 +30,13 @@ int main(int argc, char *argv[])
 
   for(int i = 0; i < 10; i++){
 
-	    move(row,col);			/* centre of screen (calculated earlier)	*/
+	    move(row,col);			/* centres to middle of screen	*/
       int tempCol = col;
       if(tracker == 1) { 
           for(int i = 1; i < sizeof(argc); i++) {
               addstr(argv[i]);
-              if(i + 1 < sizeof(argc)) {
-                  addstr(" ");
+              if(i + 1 < sizeof(argc)){
+                  addstr(" "); 
               }
           }
     } else {
