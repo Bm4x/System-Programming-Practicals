@@ -7,8 +7,8 @@ int main(int argc, char* argv[]){
     int random;
     int status;
 
-    if (argc < 1){
-    	printf("Invalid amount of arguments passed.");
+    if (argc < 2){
+    	printf("Invalid amount of arguments passed.\n");
 	return -1;
     }
 
