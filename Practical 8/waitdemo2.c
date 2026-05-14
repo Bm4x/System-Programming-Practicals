@@ -1,14 +1,27 @@
 /* waitdemo2.c - shows how parent gets child status
  */
 
-#include	<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 #define	DELAY	5
 
-main()
+void child_code(int delay);
+void parent_code(int childpid);
+
+int checker = 0;
+
+void signalhandler(int s){
+    checker = 1;
+}
+
+int main()
 {
 	int  newpid;
-	void child_code(), parent_code();
+  	signal(SIGCHLD, signalhandler);
 
 	printf("before: mypid is %d\n", getpid());
 
@@ -38,11 +51,15 @@ void parent_code(int childpid)
 	int child_status;
 	int high_8, low_7, bit_7;
 
-	wait_rv = wait(&child_status);
+	while(!checker){
+	  printf("waiting\n");
+	  sleep(1);
+	}
 	printf("done waiting for %d. Wait returned: %d\n", childpid, wait_rv);
 
 	high_8 = child_status >> 8;     /* 1111 1111 0000 0000 */
 	low_7  = child_status & 0x7F;   /* 0000 0000 0111 1111 */
 	bit_7  = child_status & 0x80;   /* 0000 0000 1000 0000 */
 	printf("status: exit=%d, sig=%d, core=%d\n", high_8, low_7, bit_7);
+	printf("Parent: Child Process has exited with status of %d\n", WEXITSTATUS(child_status));
 }
